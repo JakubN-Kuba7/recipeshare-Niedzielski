@@ -13,11 +13,13 @@ describe("Home", () => {
     expect(html).toContain("Share and discover recipes");
     expect(html).toContain('aria-label="Recipes"');
     expect(html).toContain('alt="Ghormeh Sabzi"');
+    expect(html).toContain('href="/recipes/iranian-ghormeh-sabzi"');
     expect(html).toContain("Iranian");
     expect(html).toContain("Main Dish");
     expect(html).toContain('aria-label="Average rating: 5.0 out of 5"');
     expect(html).toContain("(1 rating)");
     expect(html).toContain('alt="Tiramisu"');
+    expect(html).toContain('href="/recipes/italian-tiramisu"');
     expect(html).toContain("Italian");
     expect(html).toContain("Dessert");
     expect(html).toContain('aria-label="Average rating: 4.0 out of 5"');
