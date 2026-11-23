@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { RecipeCard } from "./components/RecipeCard";
+import { RecipeBrowser } from "./components/RecipeBrowser";
 import { getRecipes } from "../lib/recipes";
 
 export default function Home() {
@@ -25,18 +25,7 @@ export default function Home() {
             Add a recipe
           </Link>
         </header>
-        <section
-          aria-label="Recipes"
-          className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {recipes.map((recipe, index) => (
-            <RecipeCard
-              key={recipe.id}
-              recipe={recipe}
-              eagerImage={index === 0}
-            />
-          ))}
-        </section>
+        <RecipeBrowser recipes={recipes} />
       </div>
     </main>
   );

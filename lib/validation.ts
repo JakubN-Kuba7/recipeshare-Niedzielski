@@ -1,5 +1,4 @@
-import { CATEGORIES, CUISINES } from "./constants";
-import type { Category, Cuisine } from "./constants";
+import { isCategory, isCuisine } from "./constants";
 import type { NewRecipe } from "./types";
 
 export type RecipeInput = {
@@ -145,14 +144,6 @@ function splitLines(value: string): string[] {
     .split(/\r?\n/)
     .map((line) => line.trim())
     .filter(Boolean);
-}
-
-function isCuisine(value: string): value is Cuisine {
-  return CUISINES.some((cuisine) => cuisine === value);
-}
-
-function isCategory(value: string): value is Category {
-  return CATEGORIES.some((category) => category === value);
 }
 
 function isHttpUrl(value: string): boolean {

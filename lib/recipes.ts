@@ -1,27 +1,9 @@
 import { randomUUID } from "node:crypto";
 
 import { SAMPLE_RECIPES } from "./sample-data";
-import type { NewRecipe, Recipe, RecipeRating } from "./types";
+import type { NewRecipe, Recipe } from "./types";
 
 let recipes: Recipe[] = [...SAMPLE_RECIPES];
-
-export type RatingSummary = {
-  average: number | null;
-  count: number;
-};
-
-export function getRatingSummary(ratings: readonly RecipeRating[]): RatingSummary {
-  if (ratings.length === 0) {
-    return { average: null, count: 0 };
-  }
-
-  const total = ratings.reduce((sum, rating) => sum + rating.value, 0);
-
-  return {
-    average: total / ratings.length,
-    count: ratings.length,
-  };
-}
 
 export function getRecipes(): Recipe[] {
   return [...recipes];

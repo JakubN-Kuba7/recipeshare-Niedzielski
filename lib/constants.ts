@@ -24,3 +24,11 @@ export const CATEGORIES = [
 
 export type Cuisine = (typeof CUISINES)[number];
 export type Category = (typeof CATEGORIES)[number];
+
+export function isCuisine(value: string): value is Cuisine {
+  return CUISINES.some((cuisine) => cuisine === value);
+}
+
+export function isCategory(value: string): value is Category {
+  return CATEGORIES.some((category) => category === value);
+}

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { getRatingSummary } from "../../lib/recipes";
+import { getRatingSummary } from "../../lib/recipe-utils";
 import type { Recipe } from "../../lib/types";
 
 type RecipeDetailProps = {
