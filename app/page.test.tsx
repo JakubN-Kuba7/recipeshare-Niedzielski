@@ -11,6 +11,8 @@ describe("Home", () => {
 
     expect(html).toContain("RecipeShare");
     expect(html).toContain("Share and discover recipes");
+    expect(html).toContain('href="/recipes/new"');
+    expect(html).toContain("Add a recipe");
     expect(html).toContain('aria-label="Recipes"');
     expect(html).toContain('alt="Ghormeh Sabzi"');
     expect(html).toContain('href="/recipes/iranian-ghormeh-sabzi"');

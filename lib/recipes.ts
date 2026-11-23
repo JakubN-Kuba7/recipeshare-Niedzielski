@@ -1,4 +1,9 @@
-import type { RecipeRating } from "./types";
+import { randomUUID } from "node:crypto";
+
+import { SAMPLE_RECIPES } from "./sample-data";
+import type { NewRecipe, Recipe, RecipeRating } from "./types";
+
+let recipes: Recipe[] = [...SAMPLE_RECIPES];
 
 export type RatingSummary = {
   average: number | null;
@@ -16,4 +21,24 @@ export function getRatingSummary(ratings: readonly RecipeRating[]): RatingSummar
     average: total / ratings.length,
     count: ratings.length,
   };
+}
+
+export function getRecipes(): Recipe[] {
+  return [...recipes];
+}
+
+export function getRecipeById(id: string): Recipe | undefined {
+  return recipes.find((recipe) => recipe.id === id);
+}
+
+export function addRecipe(newRecipe: NewRecipe): Recipe {
+  const recipe: Recipe = {
+    ...newRecipe,
+    id: randomUUID(),
+    createdAt: new Date().toISOString(),
+    ratings: [],
+  };
+
+  recipes = [recipe, ...recipes];
+  return recipe;
 }

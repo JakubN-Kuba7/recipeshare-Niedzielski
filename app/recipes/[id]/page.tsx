@@ -2,10 +2,10 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 
 import { RecipeDetail } from "../../components/RecipeDetail";
-import { SAMPLE_RECIPES } from "../../../lib/sample-data";
+import { getRecipeById, getRecipes } from "../../../lib/recipes";
 
 export function generateStaticParams() {
-  return SAMPLE_RECIPES.map((recipe) => ({ id: recipe.id }));
+  return getRecipes().map((recipe) => ({ id: recipe.id }));
 }
 
 export default function RecipePage({
@@ -31,7 +31,7 @@ export default function RecipePage({
 }
 
 function RecipeContent({ id }: { id: string }) {
-  const recipe = SAMPLE_RECIPES.find((sampleRecipe) => sampleRecipe.id === id);
+  const recipe = getRecipeById(id);
 
   if (!recipe) {
     notFound();

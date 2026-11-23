@@ -22,3 +22,5 @@ export type Recipe = {
   createdAt: string;
   ratings: RecipeRating[];
 };
+
+export type NewRecipe = Omit<Recipe, "id" | "createdAt" | "ratings">;
