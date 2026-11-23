@@ -108,3 +108,13 @@ Read secrets only from environment variables.
 - Main-branch pushes must trigger automatic deployment.
 - GitHub Actions must install dependencies, run tests, and create a production build on every push and pull request.
 - The README must contain the live URL, local setup instructions, test commands, and a checklist for M, S, and Could features.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
