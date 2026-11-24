@@ -21,7 +21,7 @@ RecipeShare lets visitors share, browse, filter, search, sort, and rate recipes.
 
    Keep `.env.local` private; it is ignored by Git. See `.env.example` for the variable names. Vercel may write `[SENSITIVE]` placeholders instead of secret values; set `SUPABASE_URL` and `SUPABASE_SECRET_KEY` (or `SUPABASE_SERVICE_ROLE_KEY`) locally from Supabase. The secret key is server-only and must never be exposed in browser code.
 
-3. If this Supabase project already has `public.recipes` or `public.ratings`, inspect those schemas before applying the migration; `CREATE TABLE IF NOT EXISTS` does not reconcile a different existing schema. Otherwise, in the Supabase SQL Editor, run `supabase/migrations/202611230001_recipe_persistence_and_images.sql`. It creates the recipe and rating tables, seeds the sample recipes, and creates the public `recipe-images` bucket.
+3. If this Supabase project already has `public.recipes` or `public.ratings`, inspect those schemas before applying migrations; `CREATE TABLE IF NOT EXISTS` does not reconcile a different existing schema. For a new database, run `supabase/migrations/202611230001_recipe_persistence_and_images.sql` first. Then run `supabase/migrations/202611240001_add_european_cuisine.sql` to allow the European cuisine choice. If the base schema is already applied, run only the European cuisine migration.
 
 4. Start the development server:
 
