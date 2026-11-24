@@ -16,6 +16,7 @@ Updated: 2026-11-24
 - European cuisine was added to the shared cuisine list and deployed. The production database constraint was updated; `supabase/migrations/202611240001_add_european_cuisine.sql` records the change.
 - Step 14, **Final deployed verification**, is complete. The README now documents deployment from `main`, and M1-M7 were rechecked on desktop and mobile.
 - Commits `4085f2a` (European cuisine) and `b692e08` (deployment documentation) are on `main`.
+- Handoff refresh commit `48836c4` is on `main`; its Vercel deployment completed successfully.
 - S1 Google sign-in, S2 owner-only recipe editing/deletion, and S3 signed-in ratings have uncommitted local implementation changes. The user chose to skip Google Auth; these changes were not deployed and must not be staged or deployed unless requested.
 - A Google OAuth client was created in Google Cloud, but Google was not enabled/saved as a Supabase provider. The auth/ownership SQL migration remains unapplied.
 - Production deployment is READY at <https://recipeshare-niedzielski.vercel.app/>.
@@ -36,8 +37,8 @@ Updated: 2026-11-24
 - `npm test`: 44 tests passed across 10 files, including direct server-action authorization checks and edit validation.
 - `npm run lint`: passed.
 - `npm run build`: passed.
-- Latest GitHub Actions run `45472990340` passed on `main`, including dependency installation, tests, and production build.
-- Vercel reported the deployment for `b692e08` completed successfully; the production URL is READY.
+- GitHub Actions runs `45472990340` (Step 14) and `45473885767` (handoff refresh) passed on `main`, including dependency installation, tests, and production build.
+- Vercel reported successful deployments for `b692e08` and `48836c4`; the production URL is READY.
 - M1-M7 were checked live at desktop (1280x800) and mobile (390x844): recipe cards/photos/ratings render; detail pages show author and recipe fields; the empty add form reports required-field errors; Iranian + Main Dish filtering returns Ghormeh Sabzi, European shows no matches, and clearing filters restores all three cards; detail pages show five rating controls and current averages/counts; the existing M6 test record remains after reload; and the two seeded recipes have different cuisines and categories. No recipe or rating was added during this verification.
 - Mobile homepage content measured 375px wide in a 390px viewport, with no horizontal overflow.
 - GitHub secret scanning and push protection are enabled; there are 0 open and 0 resolved secret-scanning alerts. `.env.example` has placeholder values only, and no `.env.local` is tracked.
@@ -55,5 +56,5 @@ Updated: 2026-11-24
 - Link the clone to the Vercel project, then install dependencies with `npm install`.
 - Vercel may redact sensitive environment values as `[SENSITIVE]` when running `vercel env pull`. Set the real `SUPABASE_URL` and `SUPABASE_SECRET_KEY` (or `SUPABASE_SERVICE_ROLE_KEY`) locally in the ignored `.env.local`; never paste them into chat or commit them.
 - The base recipe/image migration and European cuisine migration are applied to production. The auth/ownership migration is intentionally deferred.
-- The latest pushed commit is `b692e08`; local uncommitted S1-S3/auth-related files are not included in that commit.
+- Commits `4085f2a`, `b692e08`, and `48836c4` contain the cuisine change, deployment documentation, and handoff refresh. Local uncommitted S1-S3/auth-related files are not included in these commits.
 - Run `npm test`, `npm run lint`, and `npm run build` before continuing.
