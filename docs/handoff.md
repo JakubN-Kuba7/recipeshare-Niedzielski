@@ -7,7 +7,9 @@ Updated: 2026-11-24
 - Step 10, **Load sample recipes (M7)** in `docs/plan.md`, is complete.
 - M7 was verified on the live app: Ghormeh Sabzi (Iranian, Main Dish) and Tiramisu (Italian, Dessert) are available, and combined filtering works.
 - M5 ratings are deployed and the user confirmed the live rating flow works.
-- Step 12, **Review and complete automated tests**, is complete: `npm test` runs 28 tests across 7 test files.
+- M3, M6, and S4 were verified with the production test recipe; its record and image persisted after reload and later deployments, and the user confirmed it appears on another device.
+- S5 keyword search and S6 newest/highest-rated sorting are deployed and were verified live with the available recipes.
+- Step 12, **Review and complete automated tests**, is complete: `npm test` runs 31 tests across 7 test files.
 - Step 13, **Add GitHub Actions CI**, is complete. The workflow at `.github/workflows/ci.yml` runs tests and a production build on pushes and pull requests.
 - The user confirmed the M6 test recipe appears on another device. It also remained visible after reload and in a fresh browser page; persistence across a subsequent redeployment still needs verification.
 - Commit `ee5e102` (`Add Supabase recipe image storage`) is on `main` and was verified against `origin/main`.
@@ -25,7 +27,7 @@ Updated: 2026-11-24
 
 ## Verification
 
-- `npm test`: 28 tests passed across 7 test files.
+- `npm test`: 31 tests passed across 7 test files.
 - `npm run lint`: passed.
 - `npm run build`: passed.
 - GitHub Actions run 45442266449 passed on `main`, including dependency installation, tests, and production build. It used the current Node 24-compatible action versions without the earlier deprecation warning.
@@ -35,9 +37,9 @@ Updated: 2026-11-24
 
 ## Next steps
 
-1. Continue with Step 14 in `docs/plan.md`: finish the README feature checklist and perform final desktop/mobile acceptance checks.
-2. Verify that the M6 test recipe remains available after a fresh deployment before marking M6 complete in the README.
-3. If the missing user recipe can be recovered, re-add it through the deployed upload flow after verifying its details and image.
+1. Implement the remaining Should features in order: S1 Google sign-in, followed by S2 author edit/delete and S3 account-based ratings.
+2. S1 requires Google OAuth configuration in Supabase and the corresponding redirect URLs; never put OAuth secrets in chat or source.
+3. Continue with Step 14 in `docs/plan.md` after the remaining Should features are verified.
 
 ## New-machine setup notes
 

@@ -51,7 +51,7 @@ npm run build
 
 ## Feature checklist
 
-Checked items have passed their deployed acceptance criteria. The Supabase schema and image migration are applied, and the upload implementation is deployed.
+Checked items have passed their deployed acceptance criteria. Recipe and rating data are stored in Supabase, and uploaded images are stored in its public Storage bucket.
 
 ### Must
 
@@ -69,8 +69,8 @@ Checked items have passed their deployed acceptance criteria. The Supabase schem
 - [ ] S2 Author edit/delete
 - [ ] S3 Account-based ratings
 - [x] S4 Store uploaded recipe images in Supabase Storage
-- [ ] S5 Keyword search
-- [ ] S6 Sort by newest or highest rated
+- [x] S5 Keyword search
+- [x] S6 Sort by newest or highest rated
 
 ### Could
 
