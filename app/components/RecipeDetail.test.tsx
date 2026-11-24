@@ -1,8 +1,10 @@
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { SAMPLE_RECIPES } from "../../lib/sample-data";
 import { RecipeDetail } from "./RecipeDetail";
+
+vi.mock("server-only", () => ({}));
 
 describe("RecipeDetail", () => {
   it("renders all recipe information and the author's name", () => {
@@ -22,5 +24,8 @@ describe("RecipeDetail", () => {
     expect(html).toContain("Serve warm with rice.");
     expect(html).toContain("5.0 out of 5 (1 rating)");
     expect(html).toContain("Back to all recipes");
+    expect(html).toContain("Rate this recipe");
+    expect(html).toContain('name="rating"');
+    expect(html).toContain("Submit rating");
   });
 });

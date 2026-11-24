@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { getRatingSummary } from "../../lib/recipe-utils";
 import type { Recipe } from "../../lib/types";
+import { StarRating } from "./StarRating";
 
 type RecipeDetailProps = {
   recipe: Recipe;
@@ -84,6 +85,8 @@ export function RecipeDetail({ recipe }: RecipeDetailProps) {
             ))}
           </ol>
         </section>
+
+        <StarRating recipeId={recipe.id} />
       </div>
     </article>
   );

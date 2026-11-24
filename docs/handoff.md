@@ -29,8 +29,8 @@ Updated: 2026-11-23
 
 ## Next steps
 
-1. In the deployed app, test adding a recipe with a valid image; verify it appears in the list and remains available after reload/on another device. M3, M6, and S4 remain unchecked in the README until this is verified.
-2. Continue with Step 11 in `docs/plan.md`: implement M5 ratings.
+1. Deploy and verify M5 ratings in the deployed app. Confirm that submitting a 1-to-5-star rating updates the detail-page average and count and the card summary after reload.
+2. In the deployed app, test adding a recipe with a valid image; verify it appears in the list and remains available after reload/on another device. M3, M6, and S4 remain unchecked in the README until this is verified.
 3. If the missing user recipe can be recovered, re-add it through the deployed upload flow after verifying its details and image.
 
 ## New-machine setup notes
