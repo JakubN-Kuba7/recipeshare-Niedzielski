@@ -37,8 +37,8 @@ This plan builds the Must features M1-M7 in small steps. It follows `docs/spec.m
 ## 5. Build the add-recipe form (M3)
 
 - **Files:** `app/recipes/new/page.tsx`, `app/components/RecipeForm.tsx`, `lib/validation.ts`, `lib/recipes.ts`
-- **Work:** Add a form for author name, title, cuisine, category, ingredients, steps, prep time in minutes, and image URL. Use fixed dropdown values. Validate required fields and prevent saving or adding a recipe when any field is missing.
-- **Test:** Add tests for successful submission and each required-field validation case.
+- **Work:** Add a form for author name, title, cuisine, category, ingredients, steps, prep time in minutes, and a food-image file upload. Use fixed dropdown values. Validate required fields and image file type/size, require an image-rights confirmation, and store the image in Supabase Storage.
+- **Test:** Add tests for successful submission, required-field validation, and image file validation.
 - **Check:** Submit a complete recipe and confirm it appears on the home page. Submit empty or incomplete forms and confirm the missing field is identified and nothing is saved.
 - **Commit:** Commit and push the form and validation.
 
@@ -60,16 +60,16 @@ This plan builds the Must features M1-M7 in small steps. It follows `docs/spec.m
 
 ## 8. Create the Supabase database schema
 
-- **Files:** `supabase/migrations/*.sql`, `lib/supabase/server.ts`, `lib/supabase/client.ts`, `.env.example`
-- **Work:** Create `recipes` and `ratings` tables plus needed indexes. Store the image URL, author name, title, cuisine, category, ingredients, steps, prep time, creation time, and rating data. Add environment-variable names to `.env.example` only.
+- **Files:** `supabase/migrations/*.sql`, `lib/supabase/admin.ts`, `lib/supabase/database.types.ts`, `.env.example`
+- **Work:** Create `recipes` and `ratings` tables plus needed indexes and a public `recipe-images` Storage bucket. Store the image URL returned by Storage with each recipe, along with author name, title, cuisine, category, ingredients, steps, prep time, creation time, and rating data. Add environment-variable names to `.env.example` only.
 - **Test:** Add a database-independent test for the recipe/rating data shape and migration query or schema checks if supported by the test setup.
 - **Check:** Confirm the Supabase tables exist and required fields have appropriate constraints.
 - **Commit:** Commit the migration and environment-variable names only. Never commit secret values.
 
 ## 9. Connect the app to Supabase (M6)
 
-- **Files:** `lib/supabase/server.ts`, `lib/recipes.ts`, `app/page.tsx`, `app/recipes/[id]/page.tsx`, `app/recipes/new/page.tsx`
-- **Work:** Replace temporary sample data and in-memory additions with Supabase reads and writes. Add server-side validation and return clear errors for invalid submissions.
+- **Files:** `lib/supabase/admin.ts`, `lib/recipes.ts`, `app/page.tsx`, `app/recipes/[id]/page.tsx`, `app/recipes/new/page.tsx`
+- **Work:** Replace temporary sample data and in-memory additions with Supabase reads and writes. Add server-side validation and return clear errors for invalid submissions. Migrate existing external image URLs to Storage using the guarded migration script after confirming reuse rights.
 - **Test:** Add integration or mocked-database tests for fetching recipes and persisting a valid recipe.
 - **Check:** Configure local and Vercel environment variables. Add a recipe on one device and confirm it appears on another device and remains after redeployment.
 - **Commit:** Commit and push Supabase integration.

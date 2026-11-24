@@ -15,7 +15,16 @@ function validInput(): RecipeInput {
     ingredients: "Rice\nFresh herbs",
     steps: "Rinse the rice\nCook with the herbs",
     prepTimeMinutes: "45",
-    imageUrl: "https://example.com/herb-rice.jpg",
+    image: new File(
+      [
+        new Uint8Array([
+          0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a,
+        ]),
+      ],
+      "herb-rice.png",
+      { type: "image/png" },
+    ),
+    imageRights: true,
   };
 }
 
@@ -33,7 +42,6 @@ describe("validateRecipeInput", () => {
         ingredients: ["Rice", "Fresh herbs"],
         steps: ["Rinse the rice", "Cook with the herbs"],
         prepTimeMinutes: 45,
-        imageUrl: "https://example.com/herb-rice.jpg",
       },
     });
   });
@@ -46,10 +54,17 @@ describe("validateRecipeInput", () => {
     "ingredients",
     "steps",
     "prepTimeMinutes",
-    "imageUrl",
+    "image",
+    "imageRights",
   ])("reports a missing %s field", (field) => {
     const input = validInput();
-    input[field] = " \n ";
+    if (field === "image") {
+      input.image = null;
+    } else if (field === "imageRights") {
+      input.imageRights = false;
+    } else {
+      input[field] = " \n ";
+    }
 
     const result = validateRecipeInput(input);
 
@@ -75,18 +90,20 @@ describe("validateRecipeInput", () => {
     });
   });
 
-  it("rejects invalid prep times and non-HTTP image URLs", () => {
+  it("rejects invalid prep times and unsupported image MIME types", () => {
     const result = validateRecipeInput({
       ...validInput(),
       prepTimeMinutes: "0",
-      imageUrl: "javascript:alert(1)",
+      image: new File(["not an image"], "image.svg", {
+        type: "image/svg+xml",
+      }),
     });
 
     expect(result).toMatchObject({
       success: false,
       errors: {
         prepTimeMinutes: "Enter a whole number greater than 0.",
-        imageUrl: "Enter a valid HTTP or HTTPS image URL.",
+        image: "Choose a JPEG, PNG, or WebP image.",
       },
     });
   });

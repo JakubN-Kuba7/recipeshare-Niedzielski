@@ -23,6 +23,7 @@ export function RecipeCard({ recipe, eagerImage = false }: RecipeCardProps) {
             src={recipe.imageUrl}
             alt={recipe.title}
             fill
+            unoptimized
             loading={eagerImage ? "eager" : "lazy"}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover"

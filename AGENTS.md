@@ -96,7 +96,9 @@ Read secrets only from environment variables.
 ## Product behavior
 
 - Store all recipes and ratings in Supabase.
-- Use image links for Must-feature recipes; do not require photo uploads until S4.
+- Recipe photos are uploaded to the public Supabase Storage `recipe-images` bucket. Accept JPEG, PNG, and WebP files up to 3 MB, and require users to confirm they may share the food photo.
+- Keep the Supabase secret/service-role key server-only. Never fetch arbitrary image URLs from new recipe submissions.
+- Existing external recipe image URLs can be copied into Storage with `npm run migrate:recipe-images -- --confirm-rights`; the migration checks HTTPS, public DNS addresses, redirects, file type, and size.
 - Implement M1-M7 before Should features.
 - Implement S1 before S2 and S3 because those features depend on accounts.
 - Protect author edit/delete operations and user ratings on the server, not just in the UI.

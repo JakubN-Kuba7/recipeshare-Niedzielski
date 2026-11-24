@@ -8,6 +8,9 @@ RecipeShare is a website where people share recipes from cuisines around the wor
 
 **Users:** visitors. No account is needed for the Must features. Sign-in is a Should feature (S1).
 
+Recipe images are stored in the public Supabase Storage bucket. New recipes use a local food-image file upload instead of a third-party image URL.
+S4 image uploads were brought forward at the user's request; remaining Should features still depend on completing M1-M7.
+
 ## 2. Fixed lists
 
 Show these as drop-down choices, never free text.
@@ -17,13 +20,13 @@ Show these as drop-down choices, never free text.
 
 ## 3. Must have features
 
-A feature is done only when its acceptance criterion passes on the deployed app. Must features need no user accounts and no file uploads: photos come from an image link.
+A feature is done only when its acceptance criterion passes on the deployed app. Must features need no user accounts.
 
 | ID | User story | Acceptance criterion |
 |---|---|---|
 | M1 | As a visitor, I want to browse recipes so that I can see what people are cooking. | The home page shows recipe cards with photo, title, cuisine, category, and average rating. |
 | M2 | As a visitor, I want to open a recipe so that I can read how to make it. | Clicking a card opens a detail page showing all recipe fields and the author's name. |
-| M3 | As a visitor, I want to add a recipe so that others can cook it. | The form has: author name, title, cuisine, category, ingredients, steps, prep time in minutes, image link (URL). With all fields filled, the new recipe appears on the home page. When a required field is empty, nothing is saved and I see which field is missing. |
+| M3 | As a visitor, I want to add a recipe so that others can cook it. | The form has: author name, title, cuisine, category, ingredients, steps, prep time in minutes, and a food-image file upload. The image is stored in Supabase Storage. With all fields filled, the new recipe appears on the home page. When a required field is empty, nothing is saved and I see which field is missing. |
 | M4 | As a visitor, I want to search by cuisine and filter by category so that I find the food I want. | Choosing cuisine "Iranian" and category "Main Dish" shows only recipes matching both. Clearing the choices shows all recipes. No matches shows "No recipes found". |
 | M5 | As a visitor, I want to rate a recipe from 1 to 5 stars so that others know whether it is good. | After rating, the recipe's average rating and number of ratings update on its detail page and card. |
 | M6 | As a visitor, I want recipes and ratings to be saved so that everyone sees the same data. | Data is stored in a database. A recipe added on one computer appears on another, and it is still there after redeploying. |
@@ -60,5 +63,5 @@ Comments; favorites on a profile page; a servings scaler; recipe video as an emb
 
 - Free plans only, for every service.
 - No payments, no admin panel, no email notifications.
-- Images are links to food photos only; no photos of people.
+- Images are food photos only; no photos of people. Users must have permission to store and share the photo.
 - Build the Must features first. Do not start Should features until M1 to M7 work.

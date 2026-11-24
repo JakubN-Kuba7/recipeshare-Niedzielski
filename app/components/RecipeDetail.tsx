@@ -18,6 +18,7 @@ export function RecipeDetail({ recipe }: RecipeDetailProps) {
           src={recipe.imageUrl}
           alt={recipe.title}
           fill
+          unoptimized
           loading="eager"
           sizes="(max-width: 896px) 100vw, 896px"
           className="object-cover"

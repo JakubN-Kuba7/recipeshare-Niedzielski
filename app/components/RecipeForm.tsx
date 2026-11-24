@@ -78,6 +78,14 @@ export function RecipeForm() {
           </ul>
         </div>
       )}
+      {state.formError && (
+        <p
+          role="alert"
+          className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-800"
+        >
+          {state.formError}
+        </p>
+      )}
 
       <div>
         <label
@@ -270,26 +278,52 @@ export function RecipeForm() {
 
       <div>
         <label
-          htmlFor="imageUrl"
+          htmlFor="image"
           className="mb-2 block text-sm font-medium text-zinc-800"
         >
-          Image URL
+          Food image
         </label>
         <input
-          id="imageUrl"
-          name="imageUrl"
-          type="url"
-          inputMode="url"
+          id="image"
+          name="image"
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
           required
-          aria-invalid={Boolean(errors.imageUrl)}
-          aria-describedby={fieldError("imageUrl")}
-          onChange={() => handleFieldChange("imageUrl")}
-          className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-zinc-900 outline-none focus:border-emerald-700 focus:ring-2 focus:ring-emerald-700/20"
-          placeholder="https://example.com/recipe.jpg"
+          aria-invalid={Boolean(errors.image)}
+          aria-describedby={fieldError("image")}
+          onChange={() => handleFieldChange("image")}
+          className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-zinc-900 outline-none file:mr-4 file:rounded-md file:border-0 file:bg-emerald-50 file:px-3 file:py-2 file:font-medium file:text-emerald-900 focus:border-emerald-700 focus:ring-2 focus:ring-emerald-700/20"
         />
-        {errors.imageUrl && (
-          <p id="imageUrl-error" className="mt-1 text-sm text-red-700">
-            {errors.imageUrl}
+        <p className="mt-1 text-sm text-zinc-600">
+          JPEG, PNG, or WebP; up to 3 MB. The image is stored with RecipeShare.
+        </p>
+        {errors.image && (
+          <p id="image-error" className="mt-1 text-sm text-red-700">
+            {errors.image}
+          </p>
+        )}
+      </div>
+
+      <div>
+        <label className="flex items-start gap-3 text-sm text-zinc-700">
+          <input
+            id="imageRights"
+            name="imageRights"
+            type="checkbox"
+            required
+            aria-invalid={Boolean(errors.imageRights)}
+            aria-describedby={fieldError("imageRights")}
+            onChange={() => handleFieldChange("imageRights")}
+            className="mt-1 size-4 rounded border-zinc-300 text-emerald-800 focus:ring-emerald-700"
+          />
+          <span>
+            This is a food photo, and I own it or have permission to store and
+            share it.
+          </span>
+        </label>
+        {errors.imageRights && (
+          <p id="imageRights-error" className="mt-1 text-sm text-red-700">
+            {errors.imageRights}
           </p>
         )}
       </div>

@@ -1,30 +1,21 @@
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { SAMPLE_RECIPES } from "../lib/sample-data";
 import { RecipeCard } from "./components/RecipeCard";
 import Home from "./page";
 
+vi.mock("server-only", () => ({}));
+
 describe("Home", () => {
-  it("renders recipe cards with their photos, cuisine, category, and average ratings", () => {
+  it("renders the home page and recipe loading state", () => {
     const html = renderToStaticMarkup(<Home />);
 
     expect(html).toContain("RecipeShare");
     expect(html).toContain("Share and discover recipes");
     expect(html).toContain('href="/recipes/new"');
     expect(html).toContain("Add a recipe");
-    expect(html).toContain('aria-label="Recipes"');
-    expect(html).toContain('alt="Ghormeh Sabzi"');
-    expect(html).toContain('href="/recipes/iranian-ghormeh-sabzi"');
-    expect(html).toContain("Iranian");
-    expect(html).toContain("Main Dish");
-    expect(html).toContain('aria-label="Average rating: 5.0 out of 5"');
-    expect(html).toContain("(1 rating)");
-    expect(html).toContain('alt="Tiramisu"');
-    expect(html).toContain('href="/recipes/italian-tiramisu"');
-    expect(html).toContain("Italian");
-    expect(html).toContain("Dessert");
-    expect(html).toContain('aria-label="Average rating: 4.0 out of 5"');
+    expect(html).toContain("Loading recipes...");
   });
 
   it("renders a rating count and average for multiple ratings on a card", () => {

@@ -4,18 +4,12 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "www.dinneratthezoo.com",
-        pathname: "/wp-content/uploads/**",
-      },
-    ],
+    unoptimized: true,
+  },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "4mb",
+    },
   },
   turbopack: {
     rules: {

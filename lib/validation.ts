@@ -9,14 +9,25 @@ export type RecipeInput = {
   ingredients: string;
   steps: string;
   prepTimeMinutes: string;
-  imageUrl: string;
+  image: File | null;
+  imageRights: boolean;
 };
 
 export type RecipeInputField = keyof RecipeInput;
 export type RecipeInputErrors = Partial<Record<RecipeInputField, string>>;
-export type RecipeFormState = { errors: RecipeInputErrors };
+export type RecipeFormState = {
+  errors: RecipeInputErrors;
+  formError?: string;
+};
 
 export const INITIAL_RECIPE_FORM_STATE: RecipeFormState = { errors: {} };
+export const MAX_RECIPE_IMAGE_BYTES = 3 * 1024 * 1024;
+export const ALLOWED_RECIPE_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+] as const;
+const allowedRecipeImageTypes = new Set<string>(ALLOWED_RECIPE_IMAGE_TYPES);
 
 export const RECIPE_INPUT_FIELDS: RecipeInputField[] = [
   "authorName",
@@ -26,7 +37,8 @@ export const RECIPE_INPUT_FIELDS: RecipeInputField[] = [
   "ingredients",
   "steps",
   "prepTimeMinutes",
-  "imageUrl",
+  "image",
+  "imageRights",
 ];
 
 export const RECIPE_FIELD_LABELS: Record<RecipeInputField, string> = {
@@ -37,14 +49,17 @@ export const RECIPE_FIELD_LABELS: Record<RecipeInputField, string> = {
   ingredients: "Ingredients",
   steps: "Steps",
   prepTimeMinutes: "Prep time",
-  imageUrl: "Image URL",
+  image: "Food image",
+  imageRights: "Image permission",
 };
 
 export type RecipeValidationResult =
-  | { success: true; data: NewRecipe }
+  | { success: true; data: Omit<NewRecipe, "imageUrl"> }
   | { success: false; errors: RecipeInputErrors };
 
 export function recipeInputFromFormData(formData: FormData): RecipeInput {
+  const imageValue = formData.get("image");
+
   return {
     authorName: getStringValue(formData, "authorName"),
     title: getStringValue(formData, "title"),
@@ -53,7 +68,9 @@ export function recipeInputFromFormData(formData: FormData): RecipeInput {
     ingredients: getStringValue(formData, "ingredients"),
     steps: getStringValue(formData, "steps"),
     prepTimeMinutes: getStringValue(formData, "prepTimeMinutes"),
-    imageUrl: getStringValue(formData, "imageUrl"),
+    image:
+      imageValue instanceof File && imageValue.size > 0 ? imageValue : null,
+    imageRights: formData.get("imageRights") === "on",
   };
 }
 
@@ -70,7 +87,6 @@ export function validateRecipeInput(
   const ingredients = splitLines(input.ingredients);
   const steps = splitLines(input.steps);
   const prepTimeText = input.prepTimeMinutes.trim();
-  const imageUrl = input.imageUrl.trim();
 
   if (!authorName) errors.authorName = "Enter an author name.";
   if (!title) errors.title = "Enter a recipe title.";
@@ -99,10 +115,17 @@ export function validateRecipeInput(
     errors.prepTimeMinutes = "Enter a whole number greater than 0.";
   }
 
-  if (!imageUrl) {
-    errors.imageUrl = "Enter an image URL.";
-  } else if (!isHttpUrl(imageUrl)) {
-    errors.imageUrl = "Enter a valid HTTP or HTTPS image URL.";
+  if (!input.image) {
+    errors.image = "Choose a food image file.";
+  } else if (!allowedRecipeImageTypes.has(input.image.type)) {
+    errors.image = "Choose a JPEG, PNG, or WebP image.";
+  } else if (input.image.size > MAX_RECIPE_IMAGE_BYTES) {
+    errors.image = "Choose an image that is 3 MB or smaller.";
+  }
+
+  if (!input.imageRights) {
+    errors.imageRights =
+      "Confirm that you can use this food photo.";
   }
 
   if (Object.keys(errors).length > 0) {
@@ -129,7 +152,6 @@ export function validateRecipeInput(
       ingredients,
       steps,
       prepTimeMinutes,
-      imageUrl,
     },
   };
 }
@@ -144,13 +166,4 @@ function splitLines(value: string): string[] {
     .split(/\r?\n/)
     .map((line) => line.trim())
     .filter(Boolean);
-}
-
-function isHttpUrl(value: string): boolean {
-  try {
-    const url = new URL(value);
-    return url.protocol === "http:" || url.protocol === "https:";
-  } catch {
-    return false;
-  }
 }

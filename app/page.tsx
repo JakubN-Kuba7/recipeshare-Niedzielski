@@ -1,11 +1,11 @@
+import { Suspense } from "react";
 import Link from "next/link";
+import { connection } from "next/server";
 
 import { RecipeBrowser } from "./components/RecipeBrowser";
 import { getRecipes } from "../lib/recipes";
 
 export default function Home() {
-  const recipes = getRecipes();
-
   return (
     <main className="min-h-screen bg-zinc-50 px-6 py-12 sm:px-10">
       <div className="mx-auto max-w-6xl">
@@ -25,8 +25,22 @@ export default function Home() {
             Add a recipe
           </Link>
         </header>
-        <RecipeBrowser recipes={recipes} />
+        <Suspense
+          fallback={
+            <p role="status" className="py-12 text-center text-zinc-600">
+              Loading recipes...
+            </p>
+          }
+        >
+          <RecipeList />
+        </Suspense>
       </div>
     </main>
   );
+}
+
+async function RecipeList() {
+  await connection();
+  const recipes = await getRecipes();
+  return <RecipeBrowser recipes={recipes} />;
 }

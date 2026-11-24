@@ -1,11 +1,13 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
+import { connection } from "next/server";
 
 import { RecipeDetail } from "../../components/RecipeDetail";
-import { getRecipeById, getRecipes } from "../../../lib/recipes";
+import { getRecipeById } from "../../../lib/recipes";
+import { SAMPLE_RECIPES } from "../../../lib/sample-data";
 
 export function generateStaticParams() {
-  return getRecipes().map((recipe) => ({ id: recipe.id }));
+  return SAMPLE_RECIPES.map((recipe) => ({ id: recipe.id }));
 }
 
 export default function RecipePage({
@@ -23,15 +25,14 @@ export default function RecipePage({
         </main>
       }
     >
-      {params.then(({ id }) => (
-        <RecipeContent id={id} />
-      ))}
+      {params.then(({ id }) => <RecipeContent id={id} />)}
     </Suspense>
   );
 }
 
-function RecipeContent({ id }: { id: string }) {
-  const recipe = getRecipeById(id);
+async function RecipeContent({ id }: { id: string }) {
+  await connection();
+  const recipe = await getRecipeById(id);
 
   if (!recipe) {
     notFound();
