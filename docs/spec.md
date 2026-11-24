@@ -15,7 +15,7 @@ S4 image uploads were brought forward at the user's request; remaining Should fe
 
 Show these as drop-down choices, never free text.
 
-- **Cuisine:** American, Arabic, Chinese, German, Indian, Iranian, Italian, Japanese, Mexican, Other
+- **Cuisine:** American, Arabic, Chinese, European, German, Indian, Iranian, Italian, Japanese, Mexican, Other
 - **Category:** Breakfast, Main Dish, Fast Food, Soup, Salad, Dessert, Snack, Drink
 
 ## 3. Must have features

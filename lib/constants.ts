@@ -2,6 +2,7 @@ export const CUISINES = [
   "American",
   "Arabic",
   "Chinese",
+  "European",
   "German",
   "Indian",
   "Iranian",

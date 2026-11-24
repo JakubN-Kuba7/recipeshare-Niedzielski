@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { CATEGORIES, CUISINES } from "./constants";
+import { CATEGORIES, CUISINES, isCuisine } from "./constants";
 import { SAMPLE_RECIPES } from "./sample-data";
 
 describe("RecipeShare shared data", () => {
@@ -9,6 +9,7 @@ describe("RecipeShare shared data", () => {
       "American",
       "Arabic",
       "Chinese",
+      "European",
       "German",
       "Indian",
       "Iranian",
@@ -27,6 +28,7 @@ describe("RecipeShare shared data", () => {
       "Snack",
       "Drink",
     ]);
+    expect(isCuisine("European")).toBe(true);
   });
 
   it("provides at least two complete recipes with distinct cuisines and categories", () => {
