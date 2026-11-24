@@ -31,6 +31,10 @@ RecipeShare lets visitors share, browse, filter, search, sort, and rate recipes.
 
    Open http://localhost:3000.
 
+## Deployment
+
+The production app is hosted at [recipeshare-niedzielski.vercel.app](https://recipeshare-niedzielski.vercel.app/). The GitHub repository is connected to Vercel, and each push to `main` triggers an automatic production deployment. GitHub Actions also runs tests and a production build on pushes and pull requests. Confirm the deployment is ready in Vercel before treating a change as live.
+
 ## Existing image migration
 
 After running the SQL migration and pulling the Vercel environment variables, copy existing public image URLs into Supabase Storage with:
