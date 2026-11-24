@@ -1,10 +1,12 @@
 # RecipeShare Handoff
 
-Updated: 2026-11-23
+Updated: 2026-11-24
 
 ## Current state
 
 - Step 10, **Load sample recipes (M7)** in `docs/plan.md`, is complete.
+- M5 ratings are deployed and the user confirmed the live rating flow works.
+- Step 12, **Review and complete automated tests**, is complete: `npm test` runs 28 tests across 7 test files.
 - Commit `ee5e102` (`Add Supabase recipe image storage`) is on `main` and was verified against `origin/main`.
 - Production deployment is READY at <https://recipeshare-niedzielski.vercel.app/>.
 - The Supabase schema migration was run successfully in the Supabase SQL Editor.
@@ -20,7 +22,7 @@ Updated: 2026-11-23
 
 ## Verification
 
-- `npm test`: 26 tests passed.
+- `npm test`: 28 tests passed across 7 test files.
 - `npm run lint`: passed.
 - `npm run build`: passed.
 - Production deployment status: READY; the homepage smoke check passed.
@@ -29,7 +31,7 @@ Updated: 2026-11-23
 
 ## Next steps
 
-1. Deploy and verify M5 ratings in the deployed app. Confirm that submitting a 1-to-5-star rating updates the detail-page average and count and the card summary after reload.
+1. Continue with Step 13 in `docs/plan.md`: add GitHub Actions CI for tests and the production build on pushes and pull requests.
 2. In the deployed app, test adding a recipe with a valid image; verify it appears in the list and remains available after reload/on another device. M3, M6, and S4 remain unchecked in the README until this is verified.
 3. If the missing user recipe can be recovered, re-add it through the deployed upload flow after verifying its details and image.
 
