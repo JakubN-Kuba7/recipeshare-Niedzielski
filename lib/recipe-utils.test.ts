@@ -1,7 +1,11 @@
 import { describe, expect, it } from "vitest";
 
 import { SAMPLE_RECIPES } from "./sample-data";
-import { filterRecipes, getRatingSummary } from "./recipe-utils";
+import {
+  filterRecipes,
+  getRatingSummary,
+  sortRecipes,
+} from "./recipe-utils";
 
 describe("getRatingSummary", () => {
   it("calculates the average and count of recipe ratings", () => {
@@ -42,5 +46,54 @@ describe("filterRecipes", () => {
 
   it("returns no recipes when the selected choices do not match", () => {
     expect(filterRecipes(SAMPLE_RECIPES, "Japanese", "Main Dish")).toEqual([]);
+  });
+
+  it("searches titles and ingredients without ignoring the selected filters", () => {
+    const riceRecipe = {
+      ...SAMPLE_RECIPES[0],
+      ingredients: [...SAMPLE_RECIPES[0].ingredients, "Rice"],
+    };
+
+    expect(filterRecipes([riceRecipe, ...SAMPLE_RECIPES], "", "", " RICE ")).toEqual([
+      riceRecipe,
+    ]);
+    expect(filterRecipes(SAMPLE_RECIPES, "", "", "TIRAMISU")).toEqual([
+      SAMPLE_RECIPES[1],
+    ]);
+    expect(filterRecipes(SAMPLE_RECIPES, "Italian", "Dessert", "rice")).toEqual(
+      [],
+    );
+    expect(filterRecipes(SAMPLE_RECIPES, "Italian", "Dessert", "espresso")).toEqual([
+      SAMPLE_RECIPES[1],
+    ]);
+  });
+});
+
+describe("sortRecipes", () => {
+  it("sorts newest recipes first without mutating its input", () => {
+    const recipes = [...SAMPLE_RECIPES];
+
+    expect(sortRecipes(recipes, "newest").map((recipe) => recipe.id)).toEqual([
+      "italian-tiramisu",
+      "iranian-ghormeh-sabzi",
+    ]);
+    expect(recipes).toEqual(SAMPLE_RECIPES);
+  });
+
+  it("sorts by rating and places unrated recipes last", () => {
+    const unratedRecipe = {
+      ...SAMPLE_RECIPES[1],
+      id: "unrated-tiramisu",
+      ratings: [],
+    };
+    const recipes = [unratedRecipe, ...SAMPLE_RECIPES];
+
+    expect(
+      sortRecipes(recipes, "highest-rated").map((recipe) => recipe.id),
+    ).toEqual([
+      "iranian-ghormeh-sabzi",
+      "italian-tiramisu",
+      "unrated-tiramisu",
+    ]);
   });
 });

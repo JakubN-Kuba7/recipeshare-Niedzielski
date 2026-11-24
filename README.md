@@ -2,7 +2,7 @@
 
 Live app: https://recipeshare-niedzielski.vercel.app/
 
-RecipeShare lets visitors share, browse, filter, and rate recipes. Recipe records are stored in Supabase; food images are stored in the public Supabase Storage bucket.
+RecipeShare lets visitors share, browse, filter, search, sort, and rate recipes. Recipe records are stored in Supabase; food images are stored in the public Supabase Storage bucket.
 
 ## Local setup
 
@@ -51,16 +51,16 @@ npm run build
 
 ## Feature checklist
 
-Checked items have passed their deployed acceptance criteria. The Supabase schema and image migration are applied, and the upload implementation is deployed. M3, M6, and S4 remain unchecked until the new upload and cross-device flows are verified end to end.
+Checked items have passed their deployed acceptance criteria. The Supabase schema and image migration are applied, and the upload implementation is deployed.
 
 ### Must
 
 - [x] M1 Browse recipe cards
 - [x] M2 View recipe details
-- [ ] M3 Add recipes with required-field validation and a stored food image
+- [x] M3 Add recipes with required-field validation and a stored food image
 - [x] M4 Filter by cuisine and category
 - [x] M5 Rate recipes
-- [ ] M6 Persist recipes in Supabase
+- [x] M6 Persist recipes in Supabase
 - [x] M7 Seed sample recipes
 
 ### Should
@@ -68,7 +68,7 @@ Checked items have passed their deployed acceptance criteria. The Supabase schem
 - [ ] S1 Google sign-in
 - [ ] S2 Author edit/delete
 - [ ] S3 Account-based ratings
-- [ ] S4 Store uploaded recipe images in Supabase Storage
+- [x] S4 Store uploaded recipe images in Supabase Storage
 - [ ] S5 Keyword search
 - [ ] S6 Sort by newest or highest rated
 

@@ -4,7 +4,8 @@ import { useState } from "react";
 
 import { RecipeCard } from "./RecipeCard";
 import { RecipeFilters } from "./RecipeFilters";
-import { filterRecipes } from "../../lib/recipe-utils";
+import { filterRecipes, sortRecipes } from "../../lib/recipe-utils";
+import type { RecipeSort } from "../../lib/recipe-utils";
 import type { Category, Cuisine } from "../../lib/constants";
 import type { Recipe } from "../../lib/types";
 
@@ -15,7 +16,12 @@ type RecipeBrowserProps = {
 export function RecipeBrowser({ recipes }: RecipeBrowserProps) {
   const [cuisine, setCuisine] = useState<Cuisine | "">("");
   const [category, setCategory] = useState<Category | "">("");
-  const filteredRecipes = filterRecipes(recipes, cuisine, category);
+  const [query, setQuery] = useState("");
+  const [sort, setSort] = useState<RecipeSort>("newest");
+  const filteredRecipes = sortRecipes(
+    filterRecipes(recipes, cuisine, category, query),
+    sort,
+  );
 
   return (
     <>
@@ -23,11 +29,16 @@ export function RecipeBrowser({ recipes }: RecipeBrowserProps) {
         <RecipeFilters
           cuisine={cuisine}
           category={category}
+          query={query}
+          sort={sort}
           onCuisineChange={setCuisine}
           onCategoryChange={setCategory}
+          onQueryChange={setQuery}
+          onSortChange={setSort}
           onClear={() => {
             setCuisine("");
             setCategory("");
+            setQuery("");
           }}
         />
       </section>
