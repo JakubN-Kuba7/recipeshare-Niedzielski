@@ -59,7 +59,7 @@ Checked items have passed their deployed acceptance criteria. The Supabase schem
 - [x] M2 View recipe details
 - [ ] M3 Add recipes with required-field validation and a stored food image
 - [x] M4 Filter by cuisine and category
-- [x] M5 Rate recipes
+- [ ] M5 Rate recipes
 - [ ] M6 Persist recipes in Supabase
 - [x] M7 Seed sample recipes
 
