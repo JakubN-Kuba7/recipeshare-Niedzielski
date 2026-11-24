@@ -19,7 +19,7 @@ RecipeShare lets visitors share, browse, filter, and rate recipes. Recipe record
    vercel env pull .env.local
    ```
 
-   Keep `.env.local` private; it is ignored by Git. See `.env.example` for the variable names. `SUPABASE_SECRET_KEY` is server-only and must never be exposed in browser code.
+   Keep `.env.local` private; it is ignored by Git. See `.env.example` for the variable names. Vercel may write `[SENSITIVE]` placeholders instead of secret values; set `SUPABASE_URL` and `SUPABASE_SECRET_KEY` (or `SUPABASE_SERVICE_ROLE_KEY`) locally from Supabase. The secret key is server-only and must never be exposed in browser code.
 
 3. If this Supabase project already has `public.recipes` or `public.ratings`, inspect those schemas before applying the migration; `CREATE TABLE IF NOT EXISTS` does not reconcile a different existing schema. Otherwise, in the Supabase SQL Editor, run `supabase/migrations/202611230001_recipe_persistence_and_images.sql`. It creates the recipe and rating tables, seeds the sample recipes, and creates the public `recipe-images` bucket.
 
@@ -51,7 +51,7 @@ npm run build
 
 ## Feature checklist
 
-Checked items have passed their deployed acceptance criteria. The new upload flow and Supabase migration still need to be applied and deployed.
+Checked items have passed their deployed acceptance criteria. The Supabase schema and image migration are applied, and the upload implementation is deployed. M3, M6, and S4 remain unchecked until the new upload and cross-device flows are verified end to end.
 
 ### Must
 
@@ -61,7 +61,7 @@ Checked items have passed their deployed acceptance criteria. The new upload flo
 - [x] M4 Filter by cuisine and category
 - [ ] M5 Rate recipes
 - [ ] M6 Persist recipes in Supabase
-- [ ] M7 Seed sample recipes
+- [x] M7 Seed sample recipes
 
 ### Should
 
